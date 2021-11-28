@@ -467,11 +467,8 @@ class Board:
             diameter = tool['diameter']
             # draw all holes for current tool
             curr_holes = file.find(tool['name'])
+            next_tool = file.find('T', curr_holes+1)
 
-            if(tool['next'] != ''):
-                next_tool = file.find(tool['next'], curr_holes)
-            else:
-                next_tool = -1
             curr_x = file.find('X', curr_holes)
             curr_y = file.find('Y', curr_x)
 
@@ -562,7 +559,6 @@ class Board:
             c_index = file.find('C', index)
             curr_tool['name'] = file[index:c_index]
             next_index = file.find('T', c_index)
-            curr_tool['next'] = file[next_index:file.find('C', next_index)]
 
             # get diameter
             curr_tool['diameter'] = float(file[c_index+1:next_index])
